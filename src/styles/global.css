@@ -1,0 +1,322 @@
+/* SpecViT Interactive Website - Global Styles */
+/* Dark astronomy theme inspired by distill.pub */
+
+:root {
+  /* Dark theme palette */
+  --bg-primary: #0a0e17;        /* Deep space */
+  --bg-secondary: #111827;      /* Darker panels */
+  --bg-card: #1a2332;           /* Card backgrounds */
+  --bg-card-hover: #1f2937;     /* Card hover state */
+
+  --text-primary: #e2e8f0;      /* White text */
+  --text-secondary: #94a3b8;    /* Muted text */
+  --text-muted: #64748b;        /* Even more muted */
+
+  /* Accent colors - astronomy/stellar theme */
+  --accent-blue: #3b82f6;       /* Dwarfs (hot stars) */
+  --accent-cyan: #06b6d4;       /* Highlights, links */
+  --accent-purple: #8b5cf6;     /* SpecViT brand color */
+  --accent-red: #ef4444;        /* Giants (cool stars) */
+  --accent-yellow: #f59e0b;     /* Subgiants */
+  --accent-green: #22c55e;      /* Success */
+  --accent-amber: #f59e0b;      /* Warning */
+
+  --gradient-hero: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  --gradient-accent: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Layout */
+  --content-width: 800px;
+  --wide-width: 1100px;
+  --section-gap: 6rem;
+  --card-radius: 12px;
+  --card-padding: 2rem;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  background: var(--gradient-hero);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--accent-cyan);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: var(--bg-card);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Layout containers */
+.section {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--section-gap) 2rem;
+}
+
+.section-wide {
+  max-width: var(--wide-width);
+  margin: 0 auto;
+  padding: var(--section-gap) 2rem;
+}
+
+.section-full {
+  width: 100%;
+  padding: var(--section-gap) 2rem;
+}
+
+/* Card component */
+.demo-container {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  transition: all var(--transition-normal);
+}
+
+.demo-container:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+}
+
+/* Canvas wrapper for responsive demos */
+.demo-canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.demo-canvas-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Toggle button groups */
+.toggle-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.toggle-btn {
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.toggle-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.toggle-btn.active {
+  background: var(--accent-purple);
+  color: white;
+  border-color: var(--accent-purple);
+}
+
+/* Callout boxes */
+.callout {
+  background: rgba(139, 92, 246, 0.1);
+  border-left: 4px solid var(--accent-purple);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.callout-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-left-color: var(--accent-amber);
+}
+
+.callout-success {
+  background: rgba(34, 197, 94, 0.1);
+  border-left-color: var(--accent-green);
+}
+
+/* Math blocks (KaTeX) */
+.math-block {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+/* Section dividers */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 92, 246, 0.5),
+    transparent
+  );
+  margin: var(--section-gap) 0;
+}
+
+/* Grid layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Expandable details */
+details {
+  background: var(--bg-card);
+  border-radius: var(--card-radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  user-select: none;
+}
+
+summary:hover {
+  color: var(--accent-blue);
+}
+
+details[open] summary {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive helpers */
+@media (max-width: 768px) {
+  :root {
+    --section-gap: 4rem;
+    --card-padding: 1.5rem;
+  }
+
+  .section, .section-wide {
+    padding: var(--section-gap) 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .demo-canvas-wrap {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+
+/* Loading states */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Smooth transitions for language toggle */
+[data-i18n-en], [data-i18n-zh] {
+  transition: opacity var(--transition-fast);
+}

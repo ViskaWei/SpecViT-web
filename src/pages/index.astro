@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="SpecViT: Vision Transformers for Stellar Parameters">
+  <Nav />
+
+  <!-- Hero Section -->
+  <section class="section-full" style="margin-top: 80px; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="text-center">
+      <h1 data-i18n-en="SpecViT" data-i18n-zh="SpecViT">SpecViT</h1>
+      <h2 data-i18n-en="Vision Transformers for Stellar Parameter Estimation" data-i18n-zh="基于视觉Transformer的恒星参数估计">
+        Vision Transformers for Stellar Parameter Estimation
+      </h2>
+      <p class="text-muted" style="font-size: 1.2rem; max-width: 600px; margin: 2rem auto;">
+        <span data-i18n-en="Learning to read stellar spectra through self-attention" data-i18n-zh="通过自注意力机制学习解读恒星光谱">
+          Learning to read stellar spectra through self-attention
+        </span>
+      </p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Problem Section -->
+  <section id="problem" class="section">
+    <h2 data-i18n-en="The Challenge" data-i18n-zh="挑战">The Challenge</h2>
+    <p>
+      <span data-i18n-en="Every star's light encodes its physical properties—gravity, temperature, composition. But extracting a single parameter (like surface gravity log g) from a noisy 7781-dimensional spectrum is non-trivial."
+            data-i18n-zh="每颗恒星的光谱都编码了其物理属性——重力、温度、化学成分。但从一个包含7781个数据点的噪声光谱中提取单一参数（如表面重力log g）并非易事。">
+        Every star's light encodes its physical properties—gravity, temperature, composition. But extracting a single parameter (like surface gravity log g) from a noisy 7781-dimensional spectrum is non-trivial.
+      </span>
+    </p>
+
+    <div class="callout">
+      <strong data-i18n-en="Key Insight:" data-i18n-zh="关键洞察：">Key Insight:</strong>
+      <span data-i18n-en="Not all wavelengths matter equally. Attention mechanisms can learn which spectral features are physically informative."
+            data-i18n-zh="并非所有波长都同等重要。注意力机制可以学习哪些光谱特征具有物理信息价值。">
+        Not all wavelengths matter equally. Attention mechanisms can learn which spectral features are physically informative.
+      </span>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Method Section -->
+  <section id="method" class="section">
+    <h2 data-i18n-en="Our Approach" data-i18n-zh="我们的方法">Our Approach</h2>
+    <p>
+      <span data-i18n-en="SpecViT applies Vision Transformer architecture to stellar spectra:"
+            data-i18n-zh="SpecViT将视觉Transformer架构应用于恒星光谱：">
+        SpecViT applies Vision Transformer architecture to stellar spectra:
+      </span>
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 2rem;">
+      <li data-i18n-en="Patch-based embedding: 7781-dim spectrum → 256-dim patches"
+          data-i18n-zh="基于patch的嵌入：7781维光谱 → 256维patch">
+        Patch-based embedding: 7781-dim spectrum → 256-dim patches
+      </li>
+      <li data-i18n-en="6-layer Transformer with multi-head self-attention"
+          data-i18n-zh="6层Transformer，多头自注意力机制">
+        6-layer Transformer with multi-head self-attention
+      </li>
+      <li data-i18n-en="Transfer learning: BOSZ synthetic → DESI → APOGEE real observations"
+          data-i18n-zh="迁移学习：BOSZ合成光谱 → DESI → APOGEE真实观测">
+        Transfer learning: BOSZ synthetic → DESI → APOGEE real observations
+      </li>
+    </ul>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Results Section -->
+  <section id="results" class="section-wide">
+    <h2 data-i18n-en="Results" data-i18n-zh="结果">Results</h2>
+    <div class="demo-container">
+      <h3 data-i18n-en="Performance on BOSZ Test Set (10k spectra)"
+          data-i18n-zh="BOSZ测试集性能（10k光谱）">
+        Performance on BOSZ Test Set (10k spectra)
+      </h3>
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple);">0.711</div>
+          <div class="text-muted">SpecViT R²</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-cyan);">0.442</div>
+          <div class="text-muted">SpecViT MAE</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-yellow);">0.614</div>
+          <div class="text-muted">LightGBM R² (baseline)</div>
+        </div>
+      </div>
+      <p class="text-center mt-2">
+        <span data-i18n-en="SpecViT achieves 16% better R² than gradient boosting, with particular strength on giant stars."
+              data-i18n-zh="SpecViT比梯度提升模型的R²高16%，在巨星上表现尤其突出。">
+          SpecViT achieves 16% better R² than gradient boosting, with particular strength on giant stars.
+        </span>
+      </p>
+    </div>
+
+    <!-- Interactive Per-Stellar-Type Chart -->
+    <div class="demo-container mt-2">
+      <div id="stellar-type-chart" class="loading"></div>
+    </div>
+  </section>
+
+  <script src="../islands/StellarTypeChart.ts"></script>
+
+  <div class="section-divider"></div>
+
+  <!-- Coming Soon Section -->
+  <section class="section text-center">
+    <h3 data-i18n-en="Interactive Demos Coming Soon" data-i18n-zh="交互演示即将推出">Interactive Demos Coming Soon</h3>
+    <p class="text-muted">
+      <span data-i18n-en="This page is under active development. Check back soon for:"
+            data-i18n-zh="本页面正在积极开发中。即将推出：">
+        This page is under active development. Check back soon for:
+      </span>
+    </p>
+    <ul style="list-style: none; color: var(--text-secondary); margin-top: 1rem;">
+      <li>✨ <span data-i18n-en="Live attention map visualization" data-i18n-zh="实时注意力图可视化">Live attention map visualization</span></li>
+      <li>📊 <span data-i18n-en="Interactive prediction scatter plots" data-i18n-zh="交互式预测散点图">Interactive prediction scatter plots</span></li>
+      <li>🎯 <span data-i18n-en="Giants vs Dwarfs performance comparison" data-i18n-zh="巨星vs矮星性能对比">Giants vs Dwarfs performance comparison</span></li>
+      <li>📈 <span data-i18n-en="Training convergence curves" data-i18n-zh="训练收敛曲线">Training convergence curves</span></li>
+    </ul>
+  </section>
+
+  <Footer />
+</BaseLayout>
