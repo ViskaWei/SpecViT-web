@@ -2,132 +2,475 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="SpecViT: Vision Transformers for Stellar Parameters">
   <Nav />
 
-  <!-- Hero Section -->
-  <section class="section-full" style="margin-top: 80px; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
-    <div class="text-center">
-      <h1 data-i18n-en="SpecViT" data-i18n-zh="SpecViT">SpecViT</h1>
-      <h2 data-i18n-en="Vision Transformers for Stellar Parameter Estimation" data-i18n-zh="基于视觉Transformer的恒星参数估计">
+  <!-- ===== SECTION 1: HERO ===== -->
+  <section class="hero-section">
+    <div id="hero-particles" class="hero-particles"></div>
+    <div class="hero-content text-center">
+      <h1 class="animate-in" data-i18n-en="SpecViT" data-i18n-zh="SpecViT">SpecViT</h1>
+      <p class="hero-subtitle animate-in delay-1"
+         data-i18n-en="Vision Transformers for Stellar Parameter Estimation"
+         data-i18n-zh="基于视觉Transformer的恒星参数估计">
         Vision Transformers for Stellar Parameter Estimation
-      </h2>
-      <p class="text-muted" style="font-size: 1.2rem; max-width: 600px; margin: 2rem auto;">
-        <span data-i18n-en="Learning to read stellar spectra through self-attention" data-i18n-zh="通过自注意力机制学习解读恒星光谱">
-          Learning to read stellar spectra through self-attention
-        </span>
       </p>
-    </div>
-  </section>
+      <p class="hero-tagline animate-in delay-2"
+         data-i18n-en="Learning to read stellar spectra through self-attention"
+         data-i18n-zh="通过自注意力机制学习解读恒星光谱">
+        Learning to read stellar spectra through self-attention
+      </p>
 
-  <div class="section-divider"></div>
-
-  <!-- Problem Section -->
-  <section id="problem" class="section">
-    <h2 data-i18n-en="The Challenge" data-i18n-zh="挑战">The Challenge</h2>
-    <p>
-      <span data-i18n-en="Every star's light encodes its physical properties—gravity, temperature, composition. But extracting a single parameter (like surface gravity log g) from a noisy 7781-dimensional spectrum is non-trivial."
-            data-i18n-zh="每颗恒星的光谱都编码了其物理属性——重力、温度、化学成分。但从一个包含7781个数据点的噪声光谱中提取单一参数（如表面重力log g）并非易事。">
-        Every star's light encodes its physical properties—gravity, temperature, composition. But extracting a single parameter (like surface gravity log g) from a noisy 7781-dimensional spectrum is non-trivial.
-      </span>
-    </p>
-
-    <div class="callout">
-      <strong data-i18n-en="Key Insight:" data-i18n-zh="关键洞察：">Key Insight:</strong>
-      <span data-i18n-en="Not all wavelengths matter equally. Attention mechanisms can learn which spectral features are physically informative."
-            data-i18n-zh="并非所有波长都同等重要。注意力机制可以学习哪些光谱特征具有物理信息价值。">
-        Not all wavelengths matter equally. Attention mechanisms can learn which spectral features are physically informative.
-      </span>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- Method Section -->
-  <section id="method" class="section">
-    <h2 data-i18n-en="Our Approach" data-i18n-zh="我们的方法">Our Approach</h2>
-    <p>
-      <span data-i18n-en="SpecViT applies Vision Transformer architecture to stellar spectra:"
-            data-i18n-zh="SpecViT将视觉Transformer架构应用于恒星光谱：">
-        SpecViT applies Vision Transformer architecture to stellar spectra:
-      </span>
-    </p>
-    <ul style="color: var(--text-secondary); margin-left: 2rem;">
-      <li data-i18n-en="Patch-based embedding: 7781-dim spectrum → 256-dim patches"
-          data-i18n-zh="基于patch的嵌入：7781维光谱 → 256维patch">
-        Patch-based embedding: 7781-dim spectrum → 256-dim patches
-      </li>
-      <li data-i18n-en="6-layer Transformer with multi-head self-attention"
-          data-i18n-zh="6层Transformer，多头自注意力机制">
-        6-layer Transformer with multi-head self-attention
-      </li>
-      <li data-i18n-en="Transfer learning: BOSZ synthetic → DESI → APOGEE real observations"
-          data-i18n-zh="迁移学习：BOSZ合成光谱 → DESI → APOGEE真实观测">
-        Transfer learning: BOSZ synthetic → DESI → APOGEE real observations
-      </li>
-    </ul>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- Results Section -->
-  <section id="results" class="section-wide">
-    <h2 data-i18n-en="Results" data-i18n-zh="结果">Results</h2>
-    <div class="demo-container">
-      <h3 data-i18n-en="Performance on BOSZ Test Set (10k spectra)"
-          data-i18n-zh="BOSZ测试集性能（10k光谱）">
-        Performance on BOSZ Test Set (10k spectra)
-      </h3>
-      <div class="grid-3" style="margin-top: 2rem;">
-        <div style="text-align: center;">
-          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple);">0.711</div>
-          <div class="text-muted">SpecViT R²</div>
+      <div class="hero-badges animate-in delay-3">
+        <div class="glass-card metric-badge">
+          <div class="metric-value" style="color:var(--accent-purple);">0.711</div>
+          <div class="metric-label"
+               data-i18n-en="R² on DESI (50k)"
+               data-i18n-zh="DESI数据R² (50k)">R² on DESI (50k)</div>
         </div>
-        <div style="text-align: center;">
-          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-cyan);">0.442</div>
-          <div class="text-muted">SpecViT MAE</div>
+        <div class="glass-card metric-badge">
+          <div class="metric-value" style="color:var(--accent-cyan);">0.196</div>
+          <div class="metric-label"
+               data-i18n-en="MAE (dex)"
+               data-i18n-zh="MAE (dex)">MAE (dex)</div>
         </div>
-        <div style="text-align: center;">
-          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-yellow);">0.614</div>
-          <div class="text-muted">LightGBM R² (baseline)</div>
+        <div class="glass-card metric-badge">
+          <div class="metric-value" style="color:var(--accent-green);">0.098</div>
+          <div class="metric-label"
+               data-i18n-en="σ on APOGEE"
+               data-i18n-zh="APOGEE散差σ">σ on APOGEE</div>
         </div>
       </div>
-      <p class="text-center mt-2">
-        <span data-i18n-en="SpecViT achieves 16% better R² than gradient boosting, with particular strength on giant stars."
-              data-i18n-zh="SpecViT比梯度提升模型的R²高16%，在巨星上表现尤其突出。">
-          SpecViT achieves 16% better R² than gradient boosting, with particular strength on giant stars.
-        </span>
-      </p>
-    </div>
-
-    <!-- Interactive Per-Stellar-Type Chart -->
-    <div class="demo-container mt-2">
-      <div id="stellar-type-chart" class="loading"></div>
     </div>
   </section>
-
-  <script src="../islands/StellarTypeChart.ts"></script>
 
   <div class="section-divider"></div>
 
-  <!-- Coming Soon Section -->
-  <section class="section text-center">
-    <h3 data-i18n-en="Interactive Demos Coming Soon" data-i18n-zh="交互演示即将推出">Interactive Demos Coming Soon</h3>
-    <p class="text-muted">
-      <span data-i18n-en="This page is under active development. Check back soon for:"
-            data-i18n-zh="本页面正在积极开发中。即将推出：">
-        This page is under active development. Check back soon for:
-      </span>
-    </p>
-    <ul style="list-style: none; color: var(--text-secondary); margin-top: 1rem;">
-      <li>✨ <span data-i18n-en="Live attention map visualization" data-i18n-zh="实时注意力图可视化">Live attention map visualization</span></li>
-      <li>📊 <span data-i18n-en="Interactive prediction scatter plots" data-i18n-zh="交互式预测散点图">Interactive prediction scatter plots</span></li>
-      <li>🎯 <span data-i18n-en="Giants vs Dwarfs performance comparison" data-i18n-zh="巨星vs矮星性能对比">Giants vs Dwarfs performance comparison</span></li>
-      <li>📈 <span data-i18n-en="Training convergence curves" data-i18n-zh="训练收敛曲线">Training convergence curves</span></li>
-    </ul>
+  <!-- ===== SECTION 2: KEY FINDINGS ===== -->
+  <section id="findings" class="section-wide section-wash-lavender" style="padding-top:4rem; padding-bottom:4rem;">
+    <h2 class="text-center" data-i18n-en="Key Findings" data-i18n-zh="核心发现">Key Findings</h2>
+    <div class="grid-3" style="margin-top:2rem;">
+
+      <div class="glass-card">
+        <div class="icon-box">🎯</div>
+        <h3 data-i18n-en="Near-Optimal at Low SNR" data-i18n-zh="低信噪比下接近最优">Near-Optimal at Low SNR</h3>
+        <p data-i18n-en="SpecViT comes within 0.02 R² of the Fisher Information / CRLB theoretical ceiling at SNR ≈ 4.6. The model extracts nearly all the information that is physically present in the data."
+           data-i18n-zh="在SNR ≈ 4.6时，SpecViT的R²仅比Fisher信息/CRLB理论上限低0.02。该模型几乎提取了数据中所有可用的物理信息。">
+          SpecViT comes within 0.02 R² of the Fisher Information / CRLB theoretical ceiling at SNR ≈ 4.6. The model extracts nearly all the information that is physically present in the data.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <div class="icon-box">✨</div>
+        <h3 data-i18n-en="Clean Priors > Big Data" data-i18n-zh="高质量先验 > 大数据量">Clean Priors > Big Data</h3>
+        <p data-i18n-en="BOSZ-only training achieves σ = 0.098 on APOGEE, beating DESI-360k training (σ = 0.175) by 78%. Clean synthetic spectra provide more useful physical priors than massive noisy catalogs."
+           data-i18n-zh="仅使用BOSZ合成数据训练在APOGEE上达到σ = 0.098，比使用DESI-360k训练(σ = 0.175)优78%。高质量合成光谱提供了比大量噪声数据更有效的物理先验。">
+          BOSZ-only training achieves σ = 0.098 on APOGEE, beating DESI-360k training (σ = 0.175) by 78%. Clean synthetic spectra provide more useful physical priors than massive noisy catalogs.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <div class="icon-box">🔄</div>
+        <h3 data-i18n-en="Cross-Survey Transfer" data-i18n-zh="跨巡天迁移">Cross-Survey Transfer</h3>
+        <p data-i18n-en="A single SpecViT model works across optical (DESI, 710–885 nm) and near-infrared (APOGEE, 1.5–1.7 μm) surveys. One architecture, multiple instruments."
+           data-i18n-zh="单一SpecViT模型可同时处理光学(DESI, 710–885 nm)和近红外(APOGEE, 1.5–1.7 μm)巡天数据。一种架构，多种仪器。">
+          A single SpecViT model works across optical (DESI, 710–885 nm) and near-infrared (APOGEE, 1.5–1.7 μm) surveys. One architecture, multiple instruments.
+        </p>
+      </div>
+
+    </div>
   </section>
 
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 3: THE CHALLENGE ===== -->
+  <section id="challenge" class="section">
+    <h2 data-i18n-en="The Challenge" data-i18n-zh="挑战">The Challenge</h2>
+    <p data-i18n-en="Every star's light encodes its physical properties — gravity, temperature, composition. But extracting a single parameter (like surface gravity log g) from a noisy 4096-pixel spectrum is non-trivial, especially for faint targets at magnitude >20."
+       data-i18n-zh="每颗恒星的光谱都编码了其物理属性——重力、温度、化学成分。但从一个包含4096像素的噪声光谱中提取单一参数（如表面重力log g）并非易事，尤其是对于星等>20的暗弱目标。">
+      Every star's light encodes its physical properties — gravity, temperature, composition. But extracting a single parameter (like surface gravity log g) from a noisy 4096-pixel spectrum is non-trivial, especially for faint targets at magnitude >20.
+    </p>
+
+    <div class="callout callout-insight">
+      <strong data-i18n-en="Key Insight:" data-i18n-zh="关键洞察：">Key Insight:</strong>
+      <span data-i18n-en="Not all wavelengths matter equally. Attention mechanisms can learn which spectral features are physically informative — the calcium triplet, magnesium lines, and iron features that carry the strongest gravity signal."
+            data-i18n-zh="并非所有波长都同等重要。注意力机制可以学习哪些光谱特征具有物理信息价值——钙三重线、镁线和铁线携带了最强的重力信号。">
+        Not all wavelengths matter equally. Attention mechanisms can learn which spectral features are physically informative — the calcium triplet, magnesium lines, and iron features that carry the strongest gravity signal.
+      </span>
+    </div>
+
+    <h3 style="margin-top:2rem;"
+        data-i18n-en="Interactive: SNR Degradation Explorer"
+        data-i18n-zh="交互演示：信噪比衰减探索器">Interactive: SNR Degradation Explorer</h3>
+    <p class="text-muted" style="font-size:0.9rem;"
+       data-i18n-en="Drag the slider to see how the same stellar spectrum degrades as the star gets fainter."
+       data-i18n-zh="拖动滑块查看同一恒星光谱随着恒星变暗时的退化情况。">
+      Drag the slider to see how the same stellar spectrum degrades as the star gets fainter.
+    </p>
+    <div class="demo-container" style="margin-top:1rem;">
+      <div id="snr-explorer"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 4: METHOD ===== -->
+  <section id="method" class="section-wide section-wash-mint">
+    <h2 data-i18n-en="Method: Architecture Walkthrough" data-i18n-zh="方法：架构详解">Method: Architecture Walkthrough</h2>
+    <p data-i18n-en="SpecViT applies Vision Transformer architecture to 1D stellar spectra:"
+       data-i18n-zh="SpecViT将视觉Transformer架构应用于一维恒星光谱：">
+      SpecViT applies Vision Transformer architecture to 1D stellar spectra:
+    </p>
+
+    <!-- Pipeline diagram -->
+    <div class="pipeline" style="margin:2rem 0; justify-content:center;">
+      <span class="pipeline-step" data-i18n-en="Spectrum (4096 px)" data-i18n-zh="光谱 (4096像素)">Spectrum (4096 px)</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step" data-i18n-en="256 Patches" data-i18n-zh="256个Patch">256 Patches</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step" data-i18n-en="Token Embed" data-i18n-zh="Token嵌入">Token Embed</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step" data-i18n-en="6-Layer ViT" data-i18n-zh="6层ViT">6-Layer ViT</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step" data-i18n-en="log g" data-i18n-zh="log g">log g</span>
+    </div>
+
+    <!-- Static architecture image -->
+    <div class="text-center" style="margin:1.5rem 0;">
+      <img src={`${baseUrl}/figures/specvit_pipeline.jpg`} alt="SpecViT Architecture"
+           style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(140,120,200,0.1);" />
+    </div>
+
+    <h3 style="margin-top:2.5rem;"
+        data-i18n-en="Interactive: Tokenization Visualizer"
+        data-i18n-zh="交互演示：Token化可视化">Interactive: Tokenization Visualizer</h3>
+    <p class="text-muted" style="font-size:0.9rem;"
+       data-i18n-en="Hover over patches to see how the spectrum is divided. Patch colors show attention weight — brighter means higher attention."
+       data-i18n-zh="将鼠标悬停在patch上查看光谱如何被分割。Patch颜色表示注意力权重——越亮表示注意力越高。">
+      Hover over patches to see how the spectrum is divided. Patch colors show attention weight — brighter means higher attention.
+    </p>
+    <div class="demo-container" style="margin-top:1rem;">
+      <div id="tokenization-viz"></div>
+    </div>
+
+    <!-- Key equations -->
+    <div style="margin-top:2.5rem;">
+      <h3 data-i18n-en="Key Equations" data-i18n-zh="核心公式">Key Equations</h3>
+
+      <div class="math-block">
+        <p style="margin-bottom:0.5rem; color:var(--text-secondary); font-size:0.9rem;"
+           data-i18n-en="Patch embedding:" data-i18n-zh="Patch嵌入：">Patch embedding:</p>
+        <div id="eq-patch"></div>
+      </div>
+
+      <div class="math-block">
+        <p style="margin-bottom:0.5rem; color:var(--text-secondary); font-size:0.9rem;"
+           data-i18n-en="Self-attention:" data-i18n-zh="自注意力：">Self-attention:</p>
+        <div id="eq-attention"></div>
+      </div>
+
+      <div class="math-block">
+        <p style="margin-bottom:0.5rem; color:var(--text-secondary); font-size:0.9rem;"
+           data-i18n-en="Training loss (Huber):" data-i18n-zh="训练损失（Huber）：">Training loss (Huber):</p>
+        <div id="eq-loss"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 5: ATTENTION EXPLORER ===== -->
+  <section id="attention" class="section-wide">
+    <h2 data-i18n-en="Attention Map Explorer" data-i18n-zh="注意力图探索器">Attention Map Explorer</h2>
+    <p data-i18n-en="Explore what the model learns to attend to. The deepest layers concentrate attention on the Ca II infrared triplet (λ8498, 8542, 8662 Å) — the strongest surface gravity indicator in this wavelength range."
+       data-i18n-zh="探索模型学会关注的内容。最深层的注意力集中在Ca II红外三重线(λ8498, 8542, 8662 Å)上——这是该波长范围内最强的表面重力指标。">
+      Explore what the model learns to attend to. The deepest layers concentrate attention on the Ca II infrared triplet (λ8498, 8542, 8662 Å) — the strongest surface gravity indicator in this wavelength range.
+    </p>
+    <div class="demo-container" style="margin-top:1.5rem;">
+      <div id="attention-explorer"></div>
+    </div>
+    <!-- Static fallback -->
+    <details style="margin-top:1rem;">
+      <summary data-i18n-en="Static attention map (fallback)" data-i18n-zh="静态注意力图（备选）">Static attention map (fallback)</summary>
+      <img src={`${baseUrl}/figures/attention_map_averaged.png`} alt="Attention Map Averaged"
+           style="max-width:100%; border-radius:8px; margin-top:1rem;" />
+    </details>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 6: RESULTS DASHBOARD ===== -->
+  <section id="results" class="section-wide section-wash-rose">
+    <h2 data-i18n-en="Results Dashboard" data-i18n-zh="结果仪表盘">Results Dashboard</h2>
+    <p data-i18n-en="Explore SpecViT's performance across multiple axes. Click tabs to switch views."
+       data-i18n-zh="从多个维度探索SpecViT的性能。点击标签页切换视图。">
+      Explore SpecViT's performance across multiple axes. Click tabs to switch views.
+    </p>
+    <div class="demo-container" style="margin-top:1.5rem;">
+      <div id="results-dashboard"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 7: TRANSFER LEARNING ===== -->
+  <section id="transfer" class="section-wide">
+    <h2 data-i18n-en="Transfer Learning Story" data-i18n-zh="迁移学习历程">Transfer Learning Story</h2>
+    <p data-i18n-en="How do synthetic spectra inform real-world prediction? We compare three strategies:"
+       data-i18n-zh="合成光谱如何指导真实世界的预测？我们比较了三种策略：">
+      How do synthetic spectra inform real-world prediction? We compare three strategies:
+    </p>
+
+    <!-- Visual pipeline -->
+    <div class="pipeline" style="margin:2rem 0; justify-content:center;">
+      <span class="pipeline-step" style="background:rgba(124,92,191,0.15); border-color:var(--accent-purple);"
+            data-i18n-en="BOSZ Synthetic" data-i18n-zh="BOSZ合成数据">BOSZ Synthetic</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step" style="background:rgba(45,165,184,0.15); border-color:var(--accent-cyan);"
+            data-i18n-en="DESI Real" data-i18n-zh="DESI真实数据">DESI Real</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step" style="background:rgba(61,168,122,0.15); border-color:var(--accent-green);"
+            data-i18n-en="APOGEE Test" data-i18n-zh="APOGEE测试">APOGEE Test</span>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="demo-container" style="overflow-x:auto;">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th data-i18n-en="Strategy" data-i18n-zh="策略">Strategy</th>
+            <th data-i18n-en="Training Data" data-i18n-zh="训练数据">Training Data</th>
+            <th>σ (dex)</th>
+            <th>R²</th>
+            <th>MAE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="highlight" data-i18n-en="BOSZ-only (Clean Prior)" data-i18n-zh="仅BOSZ（高质量先验）">BOSZ-only (Clean Prior)</td>
+            <td>50k BOSZ</td>
+            <td class="highlight">0.098</td>
+            <td class="highlight">0.956</td>
+            <td class="highlight">0.071</td>
+          </tr>
+          <tr>
+            <td data-i18n-en="DESI Direct" data-i18n-zh="直接DESI">DESI Direct</td>
+            <td>360k DESI</td>
+            <td>0.175</td>
+            <td>0.889</td>
+            <td>0.128</td>
+          </tr>
+          <tr>
+            <td data-i18n-en="Two-Stage" data-i18n-zh="两阶段">Two-Stage</td>
+            <td>BOSZ + DESI</td>
+            <td>0.112</td>
+            <td>0.942</td>
+            <td>0.082</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-success" style="margin-top:1.5rem;">
+      <strong data-i18n-en="Key Insight:" data-i18n-zh="关键洞察：">Key Insight:</strong>
+      <span data-i18n-en="More data ≠ better. Clean synthetic priors (50k BOSZ) outperform massive noisy catalogs (360k DESI) by 78% in prediction scatter. Quality of physics modeling trumps quantity of observations."
+            data-i18n-zh="更多数据 ≠ 更好。高质量合成先验（50k BOSZ）在预测散差上比大量噪声目录（360k DESI）优78%。物理建模的质量胜过观测数据的数量。">
+        More data ≠ better. Clean synthetic priors (50k BOSZ) outperform massive noisy catalogs (360k DESI) by 78% in prediction scatter. Quality of physics modeling trumps quantity of observations.
+      </span>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 8: SPECTRUM EXPLORER ===== -->
+  <section id="explore" class="section-wide section-wash-mint">
+    <h2 data-i18n-en="Spectrum Explorer" data-i18n-zh="光谱探索器">Spectrum Explorer</h2>
+    <p data-i18n-en="Browse 7 example DESI spectra spanning giants, subgiants, and dwarfs. Drag to pan, scroll to zoom."
+       data-i18n-zh="浏览7条示例DESI光谱，涵盖巨星、亚巨星和矮星。拖动平移，滚轮缩放。">
+      Browse 7 example DESI spectra spanning giants, subgiants, and dwarfs. Drag to pan, scroll to zoom.
+    </p>
+    <div class="demo-container" style="margin-top:1.5rem;">
+      <div id="spectrum-explorer"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SECTION 9: DEEP DIVE ===== -->
+  <section id="paper" class="section">
+    <h2 data-i18n-en="Deep Dive" data-i18n-zh="深入了解">Deep Dive</h2>
+
+    <details>
+      <summary data-i18n-en="Fisher Information & CRLB" data-i18n-zh="Fisher信息与CRLB">Fisher Information & CRLB</summary>
+      <div style="margin-top:1rem;">
+        <p data-i18n-en="The Cramér-Rao Lower Bound (CRLB) defines the minimum achievable variance for any unbiased estimator. For a parameter θ estimated from data x with likelihood p(x|θ):"
+           data-i18n-zh="Cramér-Rao下界(CRLB)定义了任何无偏估计器可达到的最小方差。对于从数据x估计参数θ，似然函数p(x|θ)：">
+          The Cramér-Rao Lower Bound (CRLB) defines the minimum achievable variance for any unbiased estimator. For a parameter θ estimated from data x with likelihood p(x|θ):
+        </p>
+        <div class="math-block">
+          <div id="eq-crlb"></div>
+        </div>
+        <p data-i18n-en="We compute Fisher information from BOSZ synthetic spectra, where the noise model is known exactly. This gives us a theoretical performance ceiling against which we benchmark SpecViT."
+           data-i18n-zh="我们从BOSZ合成光谱计算Fisher信息，因为噪声模型是精确已知的。这为我们提供了一个理论性能上限，作为SpecViT的基准。">
+          We compute Fisher information from BOSZ synthetic spectra, where the noise model is known exactly. This gives us a theoretical performance ceiling against which we benchmark SpecViT.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary data-i18n-en="Training Procedure" data-i18n-zh="训练流程">Training Procedure</summary>
+      <div style="margin-top:1rem;">
+        <p data-i18n-en="SpecViT-S (Small) configuration:" data-i18n-zh="SpecViT-S（小型）配置：">SpecViT-S (Small) configuration:</p>
+        <ul style="color:var(--text-secondary); margin:0.5rem 0 1rem 1.5rem; line-height:2;">
+          <li>6 Transformer layers, 6 attention heads, embed_dim = 384</li>
+          <li>Patch size = 16, num_patches = 256</li>
+          <li>AdamW optimizer, lr = 3e-4, cosine annealing</li>
+          <li>Huber loss (δ = 0.5), batch size = 256</li>
+          <li>Training: ~50 epochs on 1× A100 GPU (~30 min)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary data-i18n-en="Computational Cost" data-i18n-zh="计算成本">Computational Cost</summary>
+      <div style="margin-top:1rem;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th data-i18n-en="Model" data-i18n-zh="模型">Model</th>
+              <th data-i18n-en="Params" data-i18n-zh="参数量">Params</th>
+              <th data-i18n-en="Train Time" data-i18n-zh="训练时间">Train Time</th>
+              <th data-i18n-en="Inference" data-i18n-zh="推理">Inference</th>
+              <th>R²</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ridge Regression</td>
+              <td>4K</td>
+              <td>&lt;1 min</td>
+              <td>&lt;1 ms</td>
+              <td>0.507</td>
+            </tr>
+            <tr>
+              <td>LightGBM</td>
+              <td>~100K</td>
+              <td>~2 min</td>
+              <td>&lt;1 ms</td>
+              <td>0.647</td>
+            </tr>
+            <tr>
+              <td class="highlight">SpecViT-S</td>
+              <td class="highlight">7.4M</td>
+              <td>~30 min</td>
+              <td>~2 ms</td>
+              <td class="highlight">0.731</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== SECTION 10: FOOTER ===== -->
   <Footer />
+
+  <!-- ===== ISLAND SCRIPTS ===== -->
+  <script src="../islands/HeroParticles.ts"></script>
+  <script src="../islands/SNRExplorer.ts"></script>
+  <script src="../islands/TokenizationViz.ts"></script>
+  <script src="../islands/AttentionExplorer.ts"></script>
+  <script src="../islands/ResultsDashboard.ts"></script>
+  <script src="../islands/SpectrumExplorer.ts"></script>
+  <script src="../islands/StellarTypeChart.ts"></script>
+
+  <!-- KaTeX rendering -->
+  <script>
+    import katex from 'katex';
+
+    function renderEq(id: string, tex: string) {
+      const el = document.getElementById(id);
+      if (el) katex.render(tex, el, { displayMode: true, throwOnError: false });
+    }
+
+    renderEq('eq-patch', 'z_i = \\mathbf{E} \\cdot x_{[i \\cdot P : (i+1) \\cdot P]} + e_i^{\\text{pos}}, \\quad i = 0, \\ldots, N_p - 1');
+    renderEq('eq-attention', '\\text{Attention}(Q,K,V) = \\text{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_k}}\\right) V');
+    renderEq('eq-loss', '\\mathcal{L}_{\\delta}(y, \\hat{y}) = \\begin{cases} \\frac{1}{2}(y - \\hat{y})^2 & \\text{if } |y - \\hat{y}| \\le \\delta \\\\ \\delta|y - \\hat{y}| - \\frac{1}{2}\\delta^2 & \\text{otherwise} \\end{cases}');
+    renderEq('eq-crlb', '\\text{Var}(\\hat{\\theta}) \\geq \\frac{1}{I(\\theta)}, \\quad I(\\theta) = -\\mathbb{E}\\left[\\frac{\\partial^2 \\ln p(x|\\theta)}{\\partial \\theta^2}\\right]');
+  </script>
 </BaseLayout>
+
+<style>
+  /* Hero section */
+  .hero-section {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    overflow: hidden;
+  }
+
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    margin-top: -0.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 3rem;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-badges .glass-card {
+    min-width: 140px;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: 70vh;
+    }
+
+    .hero-badges {
+      gap: 1rem;
+    }
+
+    .hero-badges .glass-card {
+      min-width: 100px;
+      padding: 1rem;
+    }
+
+    .hero-badges .metric-value {
+      font-size: 1.8rem;
+    }
+  }
+</style>

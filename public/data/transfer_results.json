@@ -1,0 +1,33 @@
+{
+  "description": "Transfer learning pipeline comparison for APOGEE log g prediction",
+  "strategies": [
+    {
+      "name": "BOSZ-only (Clean Prior)",
+      "pipeline": "BOSZ synthetic → APOGEE",
+      "train_data": "50k BOSZ spectra",
+      "sigma": 0.098,
+      "r2": 0.956,
+      "mae": 0.071,
+      "highlight": true
+    },
+    {
+      "name": "DESI Direct",
+      "pipeline": "DESI-360k → APOGEE",
+      "train_data": "360k DESI spectra",
+      "sigma": 0.175,
+      "r2": 0.889,
+      "mae": 0.128,
+      "highlight": false
+    },
+    {
+      "name": "Two-Stage",
+      "pipeline": "BOSZ → DESI → APOGEE",
+      "train_data": "BOSZ + DESI fine-tune",
+      "sigma": 0.112,
+      "r2": 0.942,
+      "mae": 0.082,
+      "highlight": false
+    }
+  ],
+  "key_insight": "Clean synthetic priors (BOSZ) outperform massive noisy catalogs (DESI-360k) by 78% in prediction scatter"
+}
